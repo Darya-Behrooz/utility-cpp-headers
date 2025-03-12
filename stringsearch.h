@@ -8,15 +8,21 @@
 #include <cctype>
 
 
+// MAKE STRING LOWERCASE
+inline std::string stringAllLowercase(std::string_view stringOriginal)
+{
+	std::string stringLowercase(stringOriginal);
+	std::transform(stringLowercase.begin() , stringLowercase.end() , stringLowercase.begin() , ::tolower);
+
+	return stringLowercase;
+}
+
 // CASE-INSENSITIVE SUBSTRING SEARCH
 inline bool searchCaseInsensitive(std::string_view haystack , std::string_view needle)
 {
 	// MAKE STRINGS LOWERCASE BECAUSE .FIND() IS CASE SENSITIVE
-	std::string needleLower(needle);
-	std::string haystackLower(haystack);
-
-	std::transform(needleLower.begin() , needleLower.end() , needleLower.begin() , ::tolower);
-	std::transform(haystackLower.begin() , haystackLower.end() , haystackLower.begin() , ::tolower);
+	std::string needleLower = stringAllLowercase(needle);
+	std::string haystackLower = stringAllLowercase(haystack);
 
 	// SEARCH STRING
 	return haystackLower.find(needleLower) != std::string::npos;
